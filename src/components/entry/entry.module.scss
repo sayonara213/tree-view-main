@@ -2,12 +2,33 @@
   border: none;
   font-size: 16px;
 
-  min-width: 100px;
+  width: 100%;
   display: flex;
-  gap: 10px;
+  gap: 8px;
 
-  margin-bottom: 8px;
-  padding: 4px;
+  padding: 6px 0;
 
   background-color: transparent;
+  transition: all 0.1s ease-in-out;
+
+  &:hover {
+    background-color: var(--color-dark-gray);
+  }
+
+  span {
+    color: var(--color-light-gray);
+  }
+
+  img {
+    transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+
+  .expanded {
+    transform: rotate(90deg);
+  }
+}
+
+.leaf {
+  border-left: 2px solid var(--color-gray);
+  margin: 0 16px;
 }

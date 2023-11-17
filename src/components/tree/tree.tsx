@@ -11,9 +11,7 @@ interface ITreeProps {
 export const Tree: React.FC<ITreeProps> = ({ root }) => {
   return (
     <div className={styles.wrapper}>
-      {root.children?.map((entry) => (
-        <Entry entry={entry} key={entry.name} />
-      ))}
+      <Entry entry={root} />
     </div>
   );
 };

@@ -159,27 +159,15 @@ export const rootFile: IFileItem = {
           name: 'folder1_4',
           type: FileTypes.Folder,
           updatedAt: new Date(),
-          children: [
-            {
-              name: 'file2_0',
-              type: FileTypes.File,
-              updatedAt: new Date(),
-            },
-            {
-              name: 'folder1_4',
-              type: FileTypes.Folder,
-              updatedAt: new Date(),
-              children: [
-                {
-                  name: 'file2_0',
-                  type: FileTypes.File,
-                  updatedAt: new Date(),
-                },
-              ],
-            },
-          ],
+          children: [],
         },
       ],
+    },
+    {
+      name: 'folder1_4',
+      type: FileTypes.Folder,
+      updatedAt: new Date(),
+      children: [],
     },
   ],
 };
