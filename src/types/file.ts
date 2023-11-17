@@ -4,6 +4,7 @@ export enum FileTypes {
 }
 
 export interface IFileItem {
+  id: string;
   type: FileTypes;
   name: string;
   updatedAt: Date;
