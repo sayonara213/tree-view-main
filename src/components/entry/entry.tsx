@@ -1,18 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import styles from './entry.module.scss';
+import { FileItem } from './file/file';
+import { FolderList } from './folder-list/folder-list';
 import { FileTypes, IFileItem } from '../../types/file';
-import { Icon } from '../../ui/icon/icon';
 
 type EntryProps = {
   entry: IFileItem;
   depth?: number;
   currentPath?: string;
+  shouldExpand?: (path: string) => boolean;
   onEntryClick: (path: string) => void;
 };
 
-export const Entry: React.FC<EntryProps> = ({ entry, depth = 0, onEntryClick, currentPath }) => {
+export const Entry: React.FC<EntryProps> = ({
+  entry,
+  depth = 0,
+  onEntryClick,
+  currentPath,
+  shouldExpand,
+}) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [isSelected, setIsSelected] = useState<boolean>(false);
 
   const fullPath = `${currentPath}/${entry.name}`.replace(/^\//, ''); // Remove leading slash
 
@@ -25,35 +33,32 @@ export const Entry: React.FC<EntryProps> = ({ entry, depth = 0, onEntryClick, cu
     switchExpanded();
   };
 
+  useEffect(() => {
+    if (shouldExpand && shouldExpand(fullPath)) {
+      entry.type === FileTypes.Folder ? setIsExpanded(true) : setIsSelected(true);
+    } else {
+      setIsExpanded(false);
+      setIsSelected(false);
+    }
+  }, [shouldExpand]);
+
   return (
     <>
-      <button onClick={handleEntryClick} className={styles.entry}>
-        <div className={styles.file}>
-          <Icon
-            name={entry.children ? 'arrow' : 'file'}
-            width={18}
-            height={18}
-            className={isExpanded ? styles.expanded : ''}
-          />
-          <span className='name'>{entry.name}</span>
-        </div>
-        <span className={styles.date}>{entry.updatedAt.toLocaleDateString()}</span>
-      </button>
-      <div className={styles.leaf}>
-        {isExpanded && (
-          <div className={styles.list}>
-            {entry.children?.map((entry) => (
-              <Entry
-                entry={entry}
-                depth={depth + 1}
-                key={entry.name}
-                onEntryClick={onEntryClick}
-                currentPath={fullPath}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+      <FileItem
+        entry={entry}
+        onEntryClick={handleEntryClick}
+        isExpanded={isExpanded}
+        isSelected={isSelected}
+      />
+      {isExpanded && (
+        <FolderList
+          entry={entry}
+          onEntryClick={onEntryClick}
+          depth={depth}
+          fullPath={fullPath}
+          shouldExpand={shouldExpand}
+        />
+      )}
     </>
   );
 };
