@@ -1,12 +1,13 @@
 .entry {
   border: none;
-  font-size: 16px;
+  font-size: var(--size-normal);
 
   width: 100%;
 
-  padding: 6px 0;
+  padding: 6px 4px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   background-color: transparent;
   transition: all 0.1s ease-in-out;
@@ -17,6 +18,11 @@
 
   span {
     color: var(--color-light-gray);
+  }
+
+  .date {
+    font-size: var(--size-small);
+    color: var(--color-gray);
   }
 
   img {
@@ -33,11 +39,6 @@
   }
 }
 
-.list {
-  width: 100%;
-}
-
-.leaf {
-  border-left: 2px solid var(--color-gray);
-  margin-left: 16px;
+.selected {
+  background-color: var(--color-dark-gray);
 }

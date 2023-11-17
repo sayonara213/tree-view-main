@@ -9,10 +9,15 @@
   border-radius: 8px;
 }
 
+.path {
+  margin: 14px 0;
+  font-weight: var(--weight-normal);
+  color: var(--color-gray);
+}
+
 .list {
   width: 100%;
   flex: 1;
-  margin-top: 24px;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
