@@ -1,0 +1,11 @@
+@import url('/src/styles/reset.scss');
+@import url('/src/styles/variables.scss');
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--color-white);
+  font-weight: var(--width-medium);
+
+  background-color: var(--color-black);
+  overflow-y: scroll;
+}
