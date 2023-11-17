@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import styles from './tree.module.scss';
 import { IFileItem } from '../../types/file';
@@ -9,9 +9,20 @@ interface ITreeProps {
 }
 
 export const Tree: React.FC<ITreeProps> = ({ root }) => {
+  const [selectedPath, setSelectedPath] = useState<string>('');
+
+  const handleEntryClick = (path: string) => {
+    setSelectedPath(path);
+  };
+
   return (
     <div className={styles.wrapper}>
-      <Entry entry={root} />
+      <span className={styles.path}>{selectedPath || 'Choose file'}</span>
+      <div className={styles.list}>
+        <div className={styles.body}>
+          <Entry entry={root} onEntryClick={handleEntryClick} currentPath='' />
+        </div>
+      </div>
     </div>
   );
 };

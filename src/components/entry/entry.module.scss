@@ -3,10 +3,10 @@
   font-size: 16px;
 
   width: 100%;
-  display: flex;
-  gap: 8px;
 
   padding: 6px 0;
+  display: flex;
+  justify-content: space-between;
 
   background-color: transparent;
   transition: all 0.1s ease-in-out;
@@ -21,14 +21,23 @@
 
   img {
     transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    margin: 0 8px;
   }
 
   .expanded {
     transform: rotate(90deg);
   }
+
+  .file {
+    display: flex;
+  }
+}
+
+.list {
+  width: 100%;
 }
 
 .leaf {
   border-left: 2px solid var(--color-gray);
-  margin: 0 16px;
+  margin-left: 16px;
 }

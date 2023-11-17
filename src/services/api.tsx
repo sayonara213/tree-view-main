@@ -1,173 +1,146 @@
 import { IFileItem, FileTypes } from '../types/file';
 
+function getRandomDate(start: Date, end: Date): Date {
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+}
+
 export const rootFile: IFileItem = {
-  name: 'root',
+  id: '1',
   type: FileTypes.Folder,
-  updatedAt: new Date(),
+  name: 'RootFolder',
+  updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
   children: [
     {
-      name: 'file1_0',
-      type: FileTypes.File,
-      updatedAt: new Date(),
-    },
-    {
-      name: 'file1_1',
-      type: FileTypes.File,
-      updatedAt: new Date(),
-    },
-    {
-      name: 'file1_2',
-      type: FileTypes.File,
-      updatedAt: new Date(),
-    },
-    {
-      name: 'folder1_3',
+      id: '2',
       type: FileTypes.Folder,
-      updatedAt: new Date(),
+      name: 'Documents',
+      updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
       children: [
         {
-          name: 'file2_0',
+          id: '3',
           type: FileTypes.File,
-          updatedAt: new Date(),
+          name: 'Resume.pdf',
+          updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
         },
         {
-          name: 'file2_1',
+          id: '4',
           type: FileTypes.File,
-          updatedAt: new Date(),
+          name: 'CoverLetter.docx',
+          updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
         },
         {
-          name: 'file2_2',
+          id: '5',
           type: FileTypes.File,
-          updatedAt: new Date(),
+          name: 'Report.xlsx',
+          updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
+        },
+        {
+          id: '6',
+          type: FileTypes.File,
+          name: 'Presentation.pptx',
+          updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
         },
       ],
     },
     {
-      name: 'folder1_4',
+      id: '7',
       type: FileTypes.Folder,
-      updatedAt: new Date(),
+      name: 'Photos',
+      updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
       children: [
         {
-          name: 'file2_0',
+          id: '8',
           type: FileTypes.File,
-          updatedAt: new Date(),
+          name: 'Vacation.jpg',
+          updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
         },
         {
-          name: 'folder1_4',
-          type: FileTypes.Folder,
-          updatedAt: new Date(),
-          children: [
-            {
-              name: 'file2_0',
-              type: FileTypes.File,
-              updatedAt: new Date(),
-            },
-            {
-              name: 'folder1_4',
-              type: FileTypes.Folder,
-              updatedAt: new Date(),
-              children: [
-                {
-                  name: 'file2_0',
-                  type: FileTypes.File,
-                  updatedAt: new Date(),
-                },
-              ],
-            },
-          ],
+          id: '9',
+          type: FileTypes.File,
+          name: 'Birthday.png',
+          updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
+        },
+        {
+          id: '10',
+          type: FileTypes.File,
+          name: 'Wedding.jpg',
+          updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
+        },
+        {
+          id: '11',
+          type: FileTypes.File,
+          name: 'Concert.jpg',
+          updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
         },
       ],
     },
     {
-      name: 'folder1_5',
+      id: '12',
       type: FileTypes.Folder,
-      updatedAt: new Date(),
+      name: 'Music',
+      updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
       children: [
         {
-          name: 'folder1_4',
-          type: FileTypes.Folder,
-          updatedAt: new Date(),
-          children: [
-            {
-              name: 'file2_0',
-              type: FileTypes.File,
-              updatedAt: new Date(),
-            },
-            {
-              name: 'folder1_4',
-              type: FileTypes.Folder,
-              updatedAt: new Date(),
-              children: [
-                {
-                  name: 'file2_0',
-                  type: FileTypes.File,
-                  updatedAt: new Date(),
-                },
-              ],
-            },
-          ],
+          id: '13',
+          type: FileTypes.File,
+          name: 'FavoriteSong.mp3',
+          updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
         },
         {
-          name: 'folder1_4',
-          type: FileTypes.Folder,
-          updatedAt: new Date(),
-          children: [
-            {
-              name: 'file2_0',
-              type: FileTypes.File,
-              updatedAt: new Date(),
-            },
-            {
-              name: 'folder1_4',
-              type: FileTypes.Folder,
-              updatedAt: new Date(),
-              children: [
-                {
-                  name: 'file2_0',
-                  type: FileTypes.File,
-                  updatedAt: new Date(),
-                },
-              ],
-            },
-          ],
+          id: '14',
+          type: FileTypes.File,
+          name: 'RockPlaylist.mp3',
+          updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
         },
         {
-          name: 'folder1_4',
-          type: FileTypes.Folder,
-          updatedAt: new Date(),
-          children: [
-            {
-              name: 'file2_0',
-              type: FileTypes.File,
-              updatedAt: new Date(),
-            },
-            {
-              name: 'folder1_4',
-              type: FileTypes.Folder,
-              updatedAt: new Date(),
-              children: [
-                {
-                  name: 'file2_0',
-                  type: FileTypes.File,
-                  updatedAt: new Date(),
-                },
-              ],
-            },
-          ],
-        },
-        {
-          name: 'folder1_4',
-          type: FileTypes.Folder,
-          updatedAt: new Date(),
-          children: [],
+          id: '15',
+          type: FileTypes.File,
+          name: 'ClassicalSymphony.mp3',
+          updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
         },
       ],
     },
     {
-      name: 'folder1_4',
+      id: '16',
       type: FileTypes.Folder,
-      updatedAt: new Date(),
-      children: [],
+      name: 'Projects',
+      updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
+      children: [
+        {
+          id: '17',
+          type: FileTypes.Folder,
+          name: 'WebApp',
+          updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
+          children: [
+            {
+              id: '18',
+              type: FileTypes.File,
+              name: 'index.html',
+              updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
+            },
+            {
+              id: '19',
+              type: FileTypes.File,
+              name: 'app.js',
+              updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
+            },
+          ],
+        },
+        {
+          id: '20',
+          type: FileTypes.Folder,
+          name: 'MobileApp',
+          updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
+          children: [
+            {
+              id: '21',
+              type: FileTypes.File,
+              name: 'MainActivity.java',
+              updatedAt: getRandomDate(new Date(2020, 0, 1), new Date()),
+            },
+          ],
+        },
+      ],
     },
   ],
 };
