@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 import styles from './tree.module.scss';
 import { searchFileSystem } from '../../helpers/search';
 import { IFileItem } from '../../types/file';
+import { Icon } from '../../ui/icon/icon';
 import { Input } from '../../ui/input/input';
 import { Entry } from '../entry/entry';
 
@@ -26,7 +27,17 @@ export const Tree: React.FC<ITreeProps> = ({ root }) => {
   };
 
   const handleClick = () => {
-    handleSearch(searchQuery);
+    if (searchQuery.length > 0) {
+      handleSearch(searchQuery);
+    } else {
+      setSelectedPath('');
+      setExpandedPaths([]);
+    }
+  };
+
+  const handleCollapse = () => {
+    setExpandedPaths([]);
+    setSelectedPath('');
   };
 
   const handleShouldExpand = useCallback(
@@ -45,7 +56,10 @@ export const Tree: React.FC<ITreeProps> = ({ root }) => {
         placeholder='Search for file...'
         onSubmit={handleClick}
       />
-      <span className={styles.path}>{selectedPath || 'Choose file'}</span>
+      <div className={styles.topper}>
+        <span className={styles.path}>{selectedPath || 'Choose file'}</span>
+        <Icon name='shrink' width={18} height={18} pointer onClick={handleCollapse} />
+      </div>
 
       <div className={styles.list}>
         <div className={styles.body}>

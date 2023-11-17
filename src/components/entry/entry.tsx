@@ -35,7 +35,8 @@ export const Entry: React.FC<EntryProps> = ({
 
   useEffect(() => {
     if (shouldExpand && shouldExpand(fullPath)) {
-      entry.type === FileTypes.Folder ? setIsExpanded(true) : setIsSelected(true);
+      entry.type === FileTypes.Folder && setIsExpanded(true);
+      setIsSelected(true);
     } else {
       setIsExpanded(false);
       setIsSelected(false);
