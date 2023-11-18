@@ -53,7 +53,7 @@ The design was created during the development, and no Figma was used.
 ## Run Application
 
 You can test the [app deployed on Netlify](https://silver-eclair-961390.netlify.app/)
-Or, run it locally:
+Or, run it locally (Node v18.18.2):
 
  1. Clone the repo by using `git clone repo-link`
  2. Run `npm install` to install all deps
