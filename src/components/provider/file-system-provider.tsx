@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, createContext, useCallback, useContext, useState } from 'react';
 
-import { FileTypes, IFileItem } from '../../types/file';
+import { FileAccessTypes, FileTypes, IFileItem } from '../../types/file';
 
 interface IFileSystemContext {
   tree: IFileItem;
@@ -8,6 +8,8 @@ interface IFileSystemContext {
   moveEntry: (source: IFileItem, destination: IFileItem) => void;
   selectedPath: string;
   setSelectedPath: (path: string) => void;
+  userAccess: FileAccessTypes;
+  setUserAccess: (access: FileAccessTypes) => void;
 }
 
 const initialFileSystemContext: IFileSystemContext = {
@@ -16,6 +18,8 @@ const initialFileSystemContext: IFileSystemContext = {
   moveEntry: (file: IFileItem, newParent: IFileItem) => {},
   selectedPath: '',
   setSelectedPath: (path: string) => {},
+  userAccess: FileAccessTypes.User,
+  setUserAccess: (access: FileAccessTypes) => {},
 };
 
 const FileSystemContext = createContext<IFileSystemContext>(initialFileSystemContext);
@@ -23,6 +27,7 @@ const FileSystemContext = createContext<IFileSystemContext>(initialFileSystemCon
 export const FileSystemProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [tree, setTree] = useState<IFileItem>({} as IFileItem);
   const [selectedPath, setSelectedPath] = useState<string>('');
+  const [userAccess, setUserAccess] = useState<FileAccessTypes>(FileAccessTypes.User);
 
   const handleMoveEntry = (file: IFileItem, newParent: IFileItem) => {
     setTree((prevFileSystem) => {
@@ -57,7 +62,9 @@ export const FileSystemProvider: React.FC<PropsWithChildren> = ({ children }) =>
   const moveEntry = useCallback(handleMoveEntry, []);
 
   return (
-    <FileSystemContext.Provider value={{ tree, setTree, moveEntry, selectedPath, setSelectedPath }}>
+    <FileSystemContext.Provider
+      value={{ tree, setTree, moveEntry, selectedPath, setSelectedPath, userAccess, setUserAccess }}
+    >
       {children}
     </FileSystemContext.Provider>
   );

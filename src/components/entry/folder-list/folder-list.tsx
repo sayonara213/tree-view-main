@@ -14,6 +14,7 @@ interface IFolderListProps {
   depth: number;
   fullPath: string;
   shouldExpand?: (path: string) => boolean;
+  isDisabled?: boolean;
 }
 
 export const FolderList: React.FC<IFolderListProps> = ({
@@ -22,25 +23,30 @@ export const FolderList: React.FC<IFolderListProps> = ({
   depth,
   fullPath,
   shouldExpand,
+  isDisabled,
 }) => {
   const { moveEntry } = useFileSystem();
 
-  const [{ isOver, canDrop }, drop] = useDrop(() => ({
-    accept: 'file',
-    collect: (monitor) => ({
-      isOver: monitor.isOver({ shallow: true }),
-      canDrop: monitor.canDrop(),
-      getDropResult: monitor.getDropResult(),
-      didDrop: monitor.didDrop(),
-    }),
-    drop: (item, monitor) => {
-      if (monitor.isOver({ shallow: true })) {
-        moveEntry(item as IFileItem, entry);
-      }
+  const [{ isOver, canDrop }, drop] = useDrop(
+    () => ({
+      accept: 'file',
+      collect: (monitor) => ({
+        isOver: monitor.isOver({ shallow: true }),
+        canDrop: monitor.canDrop(),
+        getDropResult: monitor.getDropResult(),
+        didDrop: monitor.didDrop(),
+      }),
+      drop: (item, monitor) => {
+        if (monitor.isOver({ shallow: true })) {
+          moveEntry(item as IFileItem, entry);
+        }
 
-      return {};
-    },
-  }));
+        return {};
+      },
+      canDrop: () => !isDisabled,
+    }),
+    [isDisabled],
+  );
 
   const isOverCurrent = isOver && canDrop;
 

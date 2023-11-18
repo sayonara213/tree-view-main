@@ -4,8 +4,9 @@ import { DropZone } from './drop-zone/drop-zone';
 import { Topper } from './topper/topper';
 import styles from './tree.module.scss';
 import { searchFileSystem } from '../../helpers/search';
-import { IFileItem } from '../../types/file';
+import { FileAccessTypes, IFileItem } from '../../types/file';
 import { Input } from '../../ui/input/input';
+import { Select } from '../../ui/select/select';
 import { Entry } from '../entry/entry';
 import { useFileSystem } from '../provider/file-system-provider';
 
@@ -17,7 +18,7 @@ export const Tree: React.FC<ITreeProps> = ({ root }) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [expandedPaths, setExpandedPaths] = useState<string[]>([]);
 
-  const { selectedPath, setSelectedPath } = useFileSystem();
+  const { selectedPath, setSelectedPath, userAccess, setUserAccess } = useFileSystem();
 
   const handleEntryClick = (path: string) => {
     setSelectedPath(path);
@@ -52,6 +53,11 @@ export const Tree: React.FC<ITreeProps> = ({ root }) => {
 
   return (
     <div className={styles.wrapper}>
+      <Select
+        options={[FileAccessTypes.Admin, FileAccessTypes.User]}
+        onChange={setUserAccess}
+        value={userAccess}
+      />
       <Input
         type='text'
         value={searchQuery}

@@ -11,6 +11,7 @@
 
   background-color: transparent;
   transition: all 0.1s ease-in-out;
+  cursor: pointer;
 
   &:hover {
     background-color: var(--color-dark-gray);
@@ -41,4 +42,9 @@
 
 .selected {
   background-color: var(--color-dark-gray);
+}
+
+.disabled {
+  opacity: 0.4;
+  cursor: default;
 }
