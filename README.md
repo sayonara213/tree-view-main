@@ -1,46 +1,83 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# File System Tree View App
+Application to show knowledge about data structures and algorithms. This app works as a File Tree view and it allowes you to watch folder's insides and move files (depending on your role)
 
-## Available Scripts
+## Data Structure
 
-In the project directory, you can run:
+    FileItem = {
+    	id:  string;
+    	type:  'folder' | 'file';
+    	name:  string;
+    	updatedAt:  Date;
+    	children:  Array<FileItem>;
+    	access:  'admin'  | 'user';
+    }
+Example JSON:
 
-### `npm start`
+	{
+		"id": "1",
+		"type": "folder",
+		"name": "Root",
+		"updatedAt": "2022-04-23T18:25:43.511Z"
+		"access": "user",
+		"children": [
+			{
+				"id": "2",
+				"type": "file",
+				"name": "Some File",
+				"updatedAt": "2022-02-22T13:24:55.511Z"
+				"access": "user"
+			}
+		]
+	}
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+In the app, I mocked up an object to be the permanent file.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Functionality
 
-### `npm test`
+First of all, you will see all the files and folders that are in the Root folder.
+You can:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+ - Expand and collapse not empty files
+ - Move files and folders into Root, or another folder
+ - See the full path of the clicked file
+ - Search the needed file by it's name
+ - Collapse entire file system if it gets messy
+ - Switch roles to see the access functionality
 
-### `npm run build`
+## Design
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The design was created during the development, and no Figma was used.
+![image](https://github.com/sayonara213/tree-view-main/assets/79828791/d2c9de1a-9dc4-4732-b7fb-22fa6d4d600e)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Run Application
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+You can test the [app deployed on Netlify](https://silver-eclair-961390.netlify.app/)
+Or, run it locally:
 
-### `npm run eject`
+ 1. Clone the repo by using `git clone repo-link`
+ 2. Run `npm install` to install all deps
+ 3. Run `npm start` to run the app
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The app will run on `localhost:3000`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Drawbags or what-to-add
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+ - **Change the logic of complex algorithms for locating or moving files**
+	Maybe each file should have an id of its parent folder. It would be easier to store full parent folder reference in every file, but then it will be non-serializable, which is a bad approach if working with API.
+	
+ - **Use self-written Drag-and-Drop component**
+	 As ReactDND library is a good start, it also makes a mess with deep hierarchy objects and arrays, overlaying drop zones is not what this library is created for.
+	 
+ - **Switch to RTK Query and add delete functionality**
+	 As that project is intended to work with API, RTK Query is an excellent library to handle state and fetches, with it added, we could handle not only client state updates but also send them via API with ease.
+	 
+ - **Access control for writing | reading | editing**
+	For now, my app only restricts private files from moving to another folder (or if it's a folder, you can't put any file in it). But with these changes, it would be more concise to separate different restriction methods by setting each one of them a role.
+	 
+## Dependencies used
+ - **React**, as a base Library
+ - **Sass**, for styling
+ - **Typescript**, for strict typization
+ - **ReactDND**, for drag-and-drop functionality
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
