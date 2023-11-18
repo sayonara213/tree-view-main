@@ -13,23 +13,38 @@ interface IFileProps {
   onEntryClick: () => void;
   isExpanded?: boolean;
   isSelected?: boolean;
+  isDisabled?: boolean;
 }
 
-export const FileItem: React.FC<IFileProps> = ({ entry, onEntryClick, isExpanded, isSelected }) => {
-  const [, drag] = useDrag(() => ({
-    type: 'file',
-    item: entry,
-    collect: (monitor) => ({
-      getDropResult: monitor.getDropResult(),
+export const FileItem: React.FC<IFileProps> = ({
+  entry,
+  onEntryClick,
+  isExpanded,
+  isSelected,
+  isDisabled,
+}) => {
+  const [, drag] = useDrag(
+    () => ({
+      type: 'file',
+      item: entry,
+      collect: (monitor) => ({
+        getDropResult: monitor.getDropResult(),
+      }),
+      canDrag: () => !isDisabled,
     }),
-  }));
+    [isDisabled],
+  );
 
   const isFullFolder = iconSelect(entry);
 
   return (
     <button
       onClick={onEntryClick}
-      className={classes(styles.entry, isSelected && styles.selected)}
+      className={classes(
+        styles.entry,
+        isSelected && styles.selected,
+        isDisabled && styles.disabled,
+      )}
       ref={drag}
     >
       <div className={styles.file}>

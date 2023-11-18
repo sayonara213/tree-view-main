@@ -1,0 +1,32 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 16px;
+
+  button {
+    font-size: var(--size-normal);
+    background-color: var(--color-background);
+    color: var(--color-white);
+    border: 1px solid var(--color-gray);
+    border-radius: 4px 0 0 4px;
+
+    flex: 1;
+    padding: 8px 16px;
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+
+    &:last-child {
+      border-radius: 0 4px 4px 0;
+    }
+
+    &:hover {
+      background-color: var(--color-dark-gray);
+    }
+  }
+}
+
+.active {
+  background-color: var(--color-dark-gray) !important;
+}

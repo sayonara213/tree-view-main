@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { FileItem } from './file/file';
 import { FolderList } from './folder-list/folder-list';
-import { FileTypes, IFileItem } from '../../types/file';
+import { FileAccessTypes, FileTypes, IFileItem } from '../../types/file';
 import { useFileSystem } from '../provider/file-system-provider';
 
 type EntryProps = {
@@ -23,7 +23,7 @@ export const Entry: React.FC<EntryProps> = ({
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [isSelected, setIsSelected] = useState<boolean>(false);
 
-  const { selectedPath } = useFileSystem();
+  const { selectedPath, userAccess } = useFileSystem();
 
   const fullPath = `${currentPath}/${entry.name}`.replace(/^\//, ''); // Remove leading slash
 
@@ -61,6 +61,7 @@ export const Entry: React.FC<EntryProps> = ({
         onEntryClick={handleEntryClick}
         isExpanded={isExpanded}
         isSelected={isSelected}
+        isDisabled={userAccess !== entry.access && userAccess !== FileAccessTypes.Admin}
       />
       {isExpanded && (
         <FolderList
@@ -69,6 +70,7 @@ export const Entry: React.FC<EntryProps> = ({
           depth={depth}
           fullPath={fullPath}
           shouldExpand={shouldExpand}
+          isDisabled={userAccess !== entry.access && userAccess !== FileAccessTypes.Admin}
         />
       )}
     </>
