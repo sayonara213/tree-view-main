@@ -1,19 +1,23 @@
 import React, { useCallback, useState } from 'react';
 
+import { DropZone } from './drop-zone/drop-zone';
+import { Topper } from './topper/topper';
 import styles from './tree.module.scss';
 import { searchFileSystem } from '../../helpers/search';
 import { IFileItem } from '../../types/file';
 import { Input } from '../../ui/input/input';
 import { Entry } from '../entry/entry';
+import { useFileSystem } from '../provider/file-system-provider';
 
 interface ITreeProps {
   root: IFileItem;
 }
 
 export const Tree: React.FC<ITreeProps> = ({ root }) => {
-  const [selectedPath, setSelectedPath] = useState<string>('');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [expandedPaths, setExpandedPaths] = useState<string[]>([]);
+
+  const { selectedPath, setSelectedPath } = useFileSystem();
 
   const handleEntryClick = (path: string) => {
     setSelectedPath(path);
@@ -26,7 +30,17 @@ export const Tree: React.FC<ITreeProps> = ({ root }) => {
   };
 
   const handleClick = () => {
-    handleSearch(searchQuery);
+    if (searchQuery.length > 0) {
+      handleSearch(searchQuery);
+    } else {
+      setSelectedPath('');
+      setExpandedPaths([]);
+    }
+  };
+
+  const handleCollapse = () => {
+    setExpandedPaths([]);
+    setSelectedPath('');
   };
 
   const handleShouldExpand = useCallback(
@@ -45,8 +59,7 @@ export const Tree: React.FC<ITreeProps> = ({ root }) => {
         placeholder='Search for file...'
         onSubmit={handleClick}
       />
-      <span className={styles.path}>{selectedPath || 'Choose file'}</span>
-
+      <Topper selectedPath={selectedPath} handleCollapse={handleCollapse} />
       <div className={styles.list}>
         <div className={styles.body}>
           {root.children?.map((entry) => (
@@ -58,6 +71,7 @@ export const Tree: React.FC<ITreeProps> = ({ root }) => {
               shouldExpand={handleShouldExpand}
             />
           ))}
+          <DropZone />
         </div>
       </div>
     </div>

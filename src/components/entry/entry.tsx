@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { FileItem } from './file/file';
 import { FolderList } from './folder-list/folder-list';
 import { FileTypes, IFileItem } from '../../types/file';
+import { useFileSystem } from '../provider/file-system-provider';
 
 type EntryProps = {
   entry: IFileItem;
@@ -22,10 +23,12 @@ export const Entry: React.FC<EntryProps> = ({
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [isSelected, setIsSelected] = useState<boolean>(false);
 
+  const { selectedPath } = useFileSystem();
+
   const fullPath = `${currentPath}/${entry.name}`.replace(/^\//, ''); // Remove leading slash
 
   const switchExpanded = () => {
-    entry.type === FileTypes.Folder && setIsExpanded((prev) => !prev);
+    entry.children && entry.children?.length > 0 && setIsExpanded((prev) => !prev);
   };
 
   const handleEntryClick = () => {
@@ -35,12 +38,21 @@ export const Entry: React.FC<EntryProps> = ({
 
   useEffect(() => {
     if (shouldExpand && shouldExpand(fullPath)) {
-      entry.type === FileTypes.Folder ? setIsExpanded(true) : setIsSelected(true);
+      entry.type === FileTypes.Folder && setIsExpanded(true);
+      setIsSelected(true);
     } else {
       setIsExpanded(false);
       setIsSelected(false);
     }
   }, [shouldExpand]);
+
+  useEffect(() => {
+    if (selectedPath.includes(fullPath)) {
+      setIsSelected(true);
+    } else if (selectedPath) {
+      setIsSelected(false);
+    }
+  }, [selectedPath]);
 
   return (
     <>

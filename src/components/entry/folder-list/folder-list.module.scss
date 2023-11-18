@@ -5,4 +5,17 @@
 .leaf {
   border-left: 2px solid var(--color-gray);
   margin-left: 16px;
+
+  position: relative;
+}
+
+.hover {
+  filter: blur(1px) opacity(0.7);
+}
+
+.drop {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
