@@ -13,7 +13,5 @@ export const searchFileSystem = (root: IFileItem, query: string) => {
   };
 
   search(root, '');
-  console.log(paths);
-
   return paths;
 };
