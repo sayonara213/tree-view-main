@@ -63,18 +63,22 @@ The app will run on `localhost:3000`
 
 ## Drawbags or what-to-add
 
- - **Change the logic of complex algorithms for locating or moving files**
+ - **Change the logic of complex algorithms for locating or moving files.**
+   
 	Maybe each file should have an id of its parent folder. It would be easier to store full parent folder reference in every file, but then it will be non-serializable, which is a bad approach if working with API.
 	
- - **Use self-written Drag-and-Drop component**
+ - **Use self-written Drag-and-Drop component.**
+   
 	 As ReactDND library is a good start, it also makes a mess with deep hierarchy objects and arrays, overlaying drop zones is not what this library is created for. Additionally, for now, we can't put a file directly into not-expanded folders, instead, we should put them into the expanded section, where all the files in the folder are.
 ![image](https://github.com/sayonara213/tree-view-main/assets/79828791/958e0fa4-6f2f-4f63-b487-c873e1bfdde0)
 
 	 
- - **Switch to RTK Query and add delete functionality**
+ - **Switch to RTK Query and add delete functionality.**
+   
 	 As that project is intended to work with API, RTK Query is an excellent library to handle state and fetches, with it added, we could handle not only client state updates but also send them via API with ease.
 	 
- - **Access control for writing | reading | editing**
+ - **Access control for writing | reading | editing.**
+   
 	For now, my app only restricts private files from moving to another folder (or if it's a folder, you can't put any file in it). But with these changes, it would be more concise to separate different restriction methods by setting each one of them a role.
 	 
 ## Dependencies used
